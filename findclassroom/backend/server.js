@@ -1,15 +1,19 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
+const passport = require("passport");
 
 require('dotenv').config();
 
 const app = express();
 
 
+const rooms = require("./route/room");
+
 app.use(cors());
 app.use(express.json());
+
+app.use("/rooms",rooms);
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true }

@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const roomSchema = new Schema({
-  roomid:{type:Schema.Types.ObjectId, required: true},
+ // roomid:{type:Schema.Types.ObjectId, required: true},
   location: { type: String, required: true },
-  name: { type: int, required: true },
-  slots: [],
+  name: { type: Number, required: true },
+  slots: [Boolean],
   //date: { type: Date, required: true },
 }, {
   timestamps: true,
