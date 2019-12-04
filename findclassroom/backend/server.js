@@ -9,11 +9,13 @@ const app = express();
 
 
 const rooms = require("./route/room");
+const user = require("./route/user");
 
 app.use(cors());
 app.use(express.json());
 
 app.use("/rooms",rooms);
+app.use("/user",user);
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true }
