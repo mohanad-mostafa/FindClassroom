@@ -1,38 +1,26 @@
 const express = require('express');
-const bcrypt =require('bcryptjs');
-const router = express.Router();
-const User = require("../models/user");
+const router = require('express-promise-router')();
+const passport = require('passport');
+const passportConf = require('../passport');
 
-router.get("/",async (req, res) =>{
-    try{
-    const users = await User.find()
-    //console.log(room)
-    res.json({ users })
-    }catch(error){
-        res.json({error:error.message});
-    }
-});
+const { validateBody, schemas } = require('../validations/routeHelper');
+const UsersController = require('../controllers/users');
+const passportSignIn = passport.authenticate('local', { session: false });
+const passportJWT = passport.authenticate('jwt', { session: false });
 
-router.route('/:id').get((req,res) => {
-    User.findById(req.params.id)
-     .then(user => res.json(user))
-     .catch(err => res.status(400).json('Error: ' + err))
-  });
+router.route('/signup')
+  .post(validateBody(schemas.authSchema), UsersController.signUp);
 
-  router.route('/signup').post((req, res) => {
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
-  
-    const newUser = new User({
-      name,
-      email,
-      password
-    });
-  
-    newUser.save()
-    .then(() => res.json('User added!'))
-    .catch(err => res.status(400).json('Error: ' + err));
-  });
- 
+router.route('/signin')
+  .post(validateBody(schemas.authSchema), passportSignIn, UsersController.signIn);
+
+router.route('/oauth/google')
+  .post(passport.authenticate('googleToken', { session: false }), UsersController.googleOAuth);
+
+router.route('/oauth/facebook')
+  .post(passport.authenticate('facebookToken', { session: false }), UsersController.facebookOAuth);
+
+router.route('/secret')
+  .get(passportJWT, UsersController.secret);
+
 module.exports = router;
