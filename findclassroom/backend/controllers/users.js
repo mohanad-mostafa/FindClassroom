@@ -12,6 +12,21 @@ signToken = user => {
 }
 
 module.exports = {
+
+
+  getUser: async(req,res,next) => {
+    const foundUser = await User.find()
+    User.find()
+    .then(users => res.json(users))
+    .catch(err => res.status(400).json('Error: ' + err));
+  },
+
+  getUserId: async(req,res,next) => {
+   const foundUser = await User.findById(req.params.id)
+   .then(users => res.json(users))
+   .catch(err => res.status(400).json('Error: ' + err));
+  },
+
   signUp: async (req, res, next) => {
     const { email, password } = req.value.body;
 

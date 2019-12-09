@@ -8,6 +8,12 @@ const UsersController = require('../controllers/users');
 const passportSignIn = passport.authenticate('local', { session: false });
 const passportJWT = passport.authenticate('jwt', { session: false });
 
+router.route('/')
+ .get(UsersController.getUser);
+
+ router.route('/:id')
+ .get(UsersController.getUserId);
+
 router.route('/signup')
   .post(validateBody(schemas.authSchema), UsersController.signUp);
 

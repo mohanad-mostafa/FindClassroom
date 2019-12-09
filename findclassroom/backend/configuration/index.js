@@ -1,3 +1,4 @@
+// add this file to .gitignore
 module.exports = {
   JWT_SECRET: 'codeworkrauthentication',
   oauth: {
