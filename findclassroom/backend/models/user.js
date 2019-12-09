@@ -22,9 +22,9 @@ const userSchema = new Schema({
     id: {
       type: String
     },
-    email: {
+    username: {
       type: String,
-      lowercase: true
+      
     }
   },
   facebook: {
