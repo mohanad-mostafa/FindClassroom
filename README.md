@@ -38,3 +38,7 @@ module.exports = {
 
 # Docker
 docker run -p 49160:5000 mohanad-mostafa/findclassroom
+
+# .env file
+ATLAS_URI= mongodb+srv://secret@Gz4@clustermmm-bmgad.mongodb.net/test?retryWrites=true&w=majority
+
