@@ -36,3 +36,5 @@ module.exports = {
   }
 };
 
+# Docker
+docker run -p 49160:5000 mohanad-mostafa/findclassroom
